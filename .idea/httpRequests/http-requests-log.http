@@ -1,0 +1,18 @@
+POST http://localhost:4200
+Content-Type: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+<> 2024-12-01T162553.404.html
+
+###
+
+GET http://localhost:8080/api/transactions
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+###
+
