@@ -10,6 +10,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "payments")
@@ -35,9 +37,14 @@ public class Payment {
     @JoinColumn(name = "car_id", nullable = false)
     private Car car;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "service_id", nullable = false)
-    private Service service;
+     //Remplacement de la relation Service par une collection de services
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "payment_services",
+        joinColumns = @JoinColumn(name = "payment_id"),
+        inverseJoinColumns = @JoinColumn(name = "service_id")
+    )
+    private List<Service> services = new ArrayList<>();
 
     private Double givenPrice;
 
@@ -56,4 +63,7 @@ public class Payment {
     private String additionalDetails;
 
     private LocalDateTime paymentDate;
+
+    // Nouveau champ pour stocker le prix total des services
+    private Double totalPrice;
 }
