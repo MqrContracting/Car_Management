@@ -12,7 +12,7 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/repository/PaymentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/repository/PaymentRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/service/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/service/PaymentService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/carwash/CarWash/entity/Payment.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/carwash/CarWash/entity/Payment.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/carwash/CarWash/service/PaymentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/carwash/CarWash/service/PaymentService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/carwash/CarWash/service/PaymentService.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,7 +39,7 @@
     </option>
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -146,6 +146,7 @@
       <workItem from="1735226666909" duration="11311000" />
       <workItem from="1735307497187" duration="1925000" />
       <workItem from="1735312392187" duration="1177000" />
+      <workItem from="1735313790544" duration="643000" />
     </task>
     <servers />
   </component>
