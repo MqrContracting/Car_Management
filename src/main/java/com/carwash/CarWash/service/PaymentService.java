@@ -152,7 +152,7 @@ public class PaymentService {
 
         // Mettre à jour le statut et sauvegarder
         payment.setStatus(PaymentStatus.valueOf(status));
-//        System.out.println("Le statut du paiement est: "+payment.getStatus());
+        //System.out.println("Le statut du paiement est: "+payment.getStatus());
         return paymentRepository.save(payment);
     }
 
