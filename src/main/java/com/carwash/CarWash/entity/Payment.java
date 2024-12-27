@@ -38,13 +38,8 @@ public class Payment {
     private Car car;
 
      //Remplacement de la relation Service par une collection de services
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-        name = "payment_services",
-        joinColumns = @JoinColumn(name = "payment_id"),
-        inverseJoinColumns = @JoinColumn(name = "service_id")
-    )
-    private List<Service> services = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Service service;
 
     private Double givenPrice;
 
@@ -65,5 +60,4 @@ public class Payment {
     private LocalDateTime paymentDate;
 
     // Nouveau champ pour stocker le prix total des services
-    private Double totalPrice;
 }

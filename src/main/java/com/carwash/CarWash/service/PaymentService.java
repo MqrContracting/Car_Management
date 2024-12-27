@@ -32,7 +32,7 @@ public class PaymentService {
     private final ClientRepository clientRepository;
 
 
-    public Payment savePayment(Payment payment) {
+     public Payment savePayment(Payment payment) {
     // Validate client details
     Client client = payment.getClient();
     if (client == null || client.getPhoneNumber() == null) {
@@ -78,35 +78,22 @@ public class PaymentService {
                 .orElseThrow(() -> new RuntimeException("Car not found with ID: " + finalCar1.getId()));
     }
 
-    // Validate and retrieve the services
-    if (payment.getServices() == null || payment.getServices().isEmpty()) {
-        throw new IllegalArgumentException("At least one service is required.");
+    // Retrieve the service
+    if (payment.getService() == null || payment.getService().getId() == null) {
+        throw new IllegalArgumentException("Service ID is required.");
     }
 
-    List<com.carwash.CarWash.entity.Service> services = new ArrayList<>();
-    for (com.carwash.CarWash.entity.Service service : payment.getServices()) {
-        if (service.getId() == null) {
-            throw new IllegalArgumentException("Service ID is required.");
-        }
-
-        Long serviceId = service.getId();
-        com.carwash.CarWash.entity.Service retrievedService = serviceRepository.findById(serviceId)
-                .orElseThrow(() -> new RuntimeException("Service not found with ID: " + serviceId));
-
-        services.add(retrievedService);
-    }
-
-    // Calculate total price from all services
-    double totalPrice = services.stream().mapToDouble(com.carwash.CarWash.entity.Service::getPrice).sum();
+    Long serviceId = payment.getService().getId();
+    com.carwash.CarWash.entity.Service service = serviceRepository.findById(serviceId)
+            .orElseThrow(() -> new RuntimeException("Service not found with ID: " + serviceId));
 
     // Create and save the payment
     Payment newPayment = new Payment();
     newPayment.setClient(client);
     newPayment.setCar(car);
-    newPayment.setServices(services); // Set multiple services
+    newPayment.setService(service);
     newPayment.setPaymentType(payment.getPaymentType());
     newPayment.setGivenPrice(payment.getGivenPrice());
-    newPayment.setTotalPrice(totalPrice); // Store total price
     newPayment.setStatus(payment.getStatus());
     newPayment.setAdditionalDetails(payment.getAdditionalDetails());
     newPayment.setPaymentDate(LocalDateTime.now());
@@ -123,6 +110,8 @@ public class PaymentService {
     System.out.println("PAYMENT SAVED: " + newPayment);
     return result;
 }
+
+
 
 
 
