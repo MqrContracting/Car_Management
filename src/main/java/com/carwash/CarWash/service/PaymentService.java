@@ -147,9 +147,16 @@ public class PaymentService {
     public List<PaymentData> getPaymentsByDay() {
     List<Object[]> results = paymentRepository.getTotalPaymentsByDay();
     return results.stream()
-            .map(result -> new PaymentData(((Date) result[0]).toLocalDate().atStartOfDay(), (Double) result[1]))
+            .map(result -> {
+                // Récupérer la date de création et la convertir en LocalDate (sans heure)
+                LocalDate date = ((java.sql.Date) result[0]).toLocalDate();
+                Double amount = (Double) result[1];
+                // Retourner un PaymentData avec la date de création et le montant
+                return new PaymentData(date.atStartOfDay(), amount); // on garde 00:00:00 pour l'heure
+            })
             .collect(Collectors.toList());
 }
+
 
 
     // Paiements par mois

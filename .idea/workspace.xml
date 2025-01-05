@@ -8,8 +8,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/config/SecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/controller/PaymentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/dtos/PaymentData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/dtos/PaymentData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/service/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/service/PaymentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/carwash/CarWash/config/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/carwash/CarWash/config/SecurityConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/carwash/CarWash/controller/PaymentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/carwash/CarWash/controller/PaymentController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/carwash/CarWash/service/PaymentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/carwash/CarWash/service/PaymentService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -149,7 +150,8 @@
       <workItem from="1735837107769" duration="7508000" />
       <workItem from="1735874449869" duration="10117000" />
       <workItem from="1735936443395" duration="7771000" />
-      <workItem from="1736079163451" duration="4586000" />
+      <workItem from="1736079163451" duration="6463000" />
+      <workItem from="1736088124215" duration="68000" />
     </task>
     <servers />
   </component>

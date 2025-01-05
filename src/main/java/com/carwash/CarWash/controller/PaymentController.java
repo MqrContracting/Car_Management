@@ -94,19 +94,19 @@ public class PaymentController {
         return response;
     }
 
-    @GetMapping("/by-day")
+    @GetMapping("/Day")
    public ResponseEntity<?> getPaymentsByDay() {
         List<PaymentData> results = paymentService.getPaymentsByDay();
         return ResponseEntity.ok(transformToChartData(results));
     }
 
-    @GetMapping("/by-month")
+    @GetMapping("/Month")
     public ResponseEntity<?> getPaymentsByMonth() {
         List<PaymentData> results = paymentService.getPaymentsByMonth();
         return ResponseEntity.ok(transformToChartData(results));
     }
 
-    @GetMapping("/by-year")
+    @GetMapping("/Year")
    public ResponseEntity<?> getPaymentsByYear() {
         List<PaymentData> results = paymentService.getPaymentsByYear();
         return ResponseEntity.ok(transformToChartData(results));
