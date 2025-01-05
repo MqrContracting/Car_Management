@@ -33,6 +33,12 @@ public class ClientController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/total-clients")
+    public ResponseEntity<Long> getTotalClients() {
+        long totalClients = clientService.countTotalClients();
+        return ResponseEntity.ok(totalClients);
+    }
+
     @PutMapping("/{clientId}")
     public ResponseEntity<Client> updateClient(@PathVariable Long clientId, @RequestBody Client updatedclient) {
         return ResponseEntity.ok(clientService.updateClient(clientId, updatedclient));

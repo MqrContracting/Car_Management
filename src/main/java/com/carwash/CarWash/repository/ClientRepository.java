@@ -9,6 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Long> {
+    long count(); // Méthode intégrée pour compter les enregistrements
     Optional<Client> findByPhoneNumber(String phoneNumber);
     Optional<Client> findByEmail(String email);
 }

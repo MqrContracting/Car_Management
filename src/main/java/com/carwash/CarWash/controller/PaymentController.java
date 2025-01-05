@@ -1,6 +1,7 @@
 package com.carwash.CarWash.controller;
 
 
+import com.carwash.CarWash.dtos.PaymentData;
 import com.carwash.CarWash.entity.Payment;
 import com.carwash.CarWash.entity.Transaction;
 import com.carwash.CarWash.service.PaymentService;
@@ -44,10 +45,7 @@ public class PaymentController {
         return ResponseEntity.ok(paymentService.getAllPayments());
     }
 
-//    @GetMapping("/service/{serviceType}")
-//    public ResponseEntity<List<Payment>> getPaymentsByByService_ServiceType(ServiceType serviceType) {
-//        return ResponseEntity.ok(paymentService.getPaymentsByService_ServiceType(serviceType));
-//    }
+
     @GetMapping("/date-range")
     public ResponseEntity<List<Transaction>> getPaymentsWithinDateRange(
             @RequestParam LocalDateTime startDate,
@@ -55,48 +53,49 @@ public class PaymentController {
         return ResponseEntity.ok(paymentService.getPaymentsWithinDateRange(startDate, endDate));
     }
 
+    // Endpoint pour récupérer le total des givenPrice
+    @GetMapping("/total-income")
+    public double getTotalIncome() {
+        return paymentService.calculateTotalIncome();
+    }
+
+    // Endpoint pour récupérer le total des paiements en cash
+    @GetMapping("/CASH")
+    public double getCashPayments() {
+        try {
+        return paymentService.getCashPayments();
+    } catch (Exception e) {
+        // Gérer l'erreur ici, ou renvoyer une valeur par défaut
+        throw new RuntimeException("Erreur lors du calcul des paiements en cash", e);
+    }
+    }
+
+    // Endpoint pour récupérer le total des paiements via Juice
+    @GetMapping("/JUICE")
+    public double getJuicePayments() {
+        return paymentService.getJuicePayments();
+    }
 
     @GetMapping("/client/{clientId}")
     public ResponseEntity<List<Payment>> getPaymentsByClient(@PathVariable Long clientId) {
         List<Payment> payments = paymentService.getPaymentsByClient(clientId);
         return ResponseEntity.ok(payments);
     }
-//
-//    @PutMapping("/api/payments/{id}")
-//    public ResponseEntity<Payment> updatePayment(@RequestBody Payment payment) {
-//        return ResponseEntity.ok(paymentService.updatePayment(payment));
-//    }
 
-//    @PatchMapping("/api/payments/{id}/status")
-//    public ResponseEntity<Payment> updatePaymentStatus(@PathVariable Long id, @RequestBody Map<String, String> updates) {
-//    String status = updates.get("status");
-//
-//    // Vérifier si le statut est vide ou null
-//    if (status == null || status.isEmpty()) {
-//        return ResponseEntity.badRequest().body(null);
-//    }
-//
-//    // Vérifier si le statut fourni est valide
-//    try {
-//        PaymentStatus newStatus = PaymentStatus.valueOf(status);
-//
-//        Optional<Payment> paymentOptional = paymentService.getPaymentById(id);
-//
-//        if (paymentOptional.isPresent()) {
-//            Payment payment = paymentOptional.get();
-//            payment.setStatus(newStatus);
-//
-//            // Mettre à jour le paiement
-//            Payment updatedPayment = paymentService.updatePayment(payment);
-//            System.out.println(status);
-//            return ResponseEntity.ok(updatedPayment);
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    } catch (IllegalArgumentException e) {
-//        return ResponseEntity.badRequest().build(); // Statut invalide
-//    }
-//}
+    @GetMapping("/by-day")
+    public List<PaymentData> getPaymentsByDay() {
+        return paymentService.getPaymentsByDay();
+    }
+
+    @GetMapping("/by-month")
+    public List<PaymentData> getPaymentsByMonth() {
+        return paymentService.getPaymentsByMonth();
+    }
+
+    @GetMapping("/by-year")
+    public List<PaymentData> getPaymentsByYear() {
+        return paymentService.getPaymentsByYear();
+    }
      @PatchMapping("/{id}/status")
     public ResponseEntity<?> updatePaymentStatus(@PathVariable Long id, @RequestBody Map<String, String> updates) {
 

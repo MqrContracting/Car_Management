@@ -25,6 +25,10 @@ public class ClientService {
         return clientRepository.findByEmail(email);
     }
 
+    public long countTotalClients() {
+        return clientRepository.count(); // Compte le nombre total d'entrées dans la table clients
+    }
+
     public Client updateClient(Long clientId, Client updatedClient) {
         return clientRepository.findById(clientId)
                 .map(client -> {

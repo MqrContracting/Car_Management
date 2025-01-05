@@ -44,12 +44,12 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) // Disable CSRF for stateless APIs
                 .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Add CORS configuration
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/welcome", "/auth/addNewUser", "/auth/generateToken", "/api/transactions", "/api/services", "/api/payments/**", "/api/clients", "/api/car").permitAll()
+                        .requestMatchers("/auth/welcome", "/auth/addNewUser", "/auth/generateToken", "/api/transactions", "/api/services", "/api/payments/**", "/api/clients", "/api/car", "/api/payments/total-income", "/api/payments/JUICE","/api/payments/CASH", "/api/clients/total-clients").permitAll()
                         .requestMatchers("/auth/user/**", "/api/payments/**").hasAuthority("ROLE_USER")
                         .requestMatchers("/auth/admin/**", "/api/payments/**").hasAuthority("ROLE_ADMIN")
                         //.requestMatchers("/car", "/api/transactions", "/api/services", "/api/payments")
                         //.hasAuthority("ROLE_USER")
-//                        .anyRequest().authenticated() // Protect all other endpoints
+                        .anyRequest().authenticated()
                 )
                 .sessionManagement(
                         sess -> sess

@@ -1,9 +1,10 @@
 package com.carwash.CarWash.service;
 
+import com.carwash.CarWash.dtos.PaymentData;
 import com.carwash.CarWash.entity.Car;
 import com.carwash.CarWash.entity.Client;
 import com.carwash.CarWash.entity.Enum.PaymentStatus;
-import com.carwash.CarWash.entity.Enum.ServiceType;
+import com.carwash.CarWash.entity.Enum.PaymentType;
 import com.carwash.CarWash.entity.Payment;
 import com.carwash.CarWash.entity.Transaction;
 import com.carwash.CarWash.repository.CarRepository;
@@ -14,11 +15,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -31,7 +32,7 @@ public class PaymentService {
     private final ClientService clientService;
     private final ClientRepository clientRepository;
 
-
+    //Ajouter un paiement
      public Payment savePayment(Payment payment) {
     // Validate client details
     Client client = payment.getClient();
@@ -112,35 +113,62 @@ public class PaymentService {
 }
 
 
+    // Total des paiements
+    public double calculateTotalIncome() {
+        return paymentRepository.findAll()
+                .stream()
+                .mapToDouble(Payment::getGivenPrice)
+                .sum();
 
+    }
 
+    // Total des paiements en cash
+    public double getCashPayments() {
+        return paymentRepository.sumGivenPriceByPaymentMethod(PaymentType.CASH);
+    }
 
-
-
-
-//    public Payment updatePayment(Payment payment) {
-////        if (payment == null || payment.getId() == null) {
-////            throw new IllegalArgumentException("Payment or Payment ID must not be null");
-////        }
-////
-////        // Ensure the payment exists before updating
-////        Optional<Payment> existingPayment = paymentRepository.findById(payment.getId());
-////        if (existingPayment.isEmpty()) {
-////            throw new IllegalStateException("Payment with ID " + payment.getId() + " does not exist");
-////        }
-//
-//        return paymentRepository.save(payment);
-//    }
+    // Total des paiements via Juice
+    public double getJuicePayments() {
+        return paymentRepository.sumGivenPriceByPaymentMethod(PaymentType.JUICE);
+    }
 
     public Optional<Payment> getPaymentById(Long id) {
         return paymentRepository.findById(id);
     }
 
+    //Tous les paiements
     public List<Payment> getAllPayments() {
         //System.out.println("Le resultat de payment est: "+result);
         return paymentRepository.findAllWithDetails();
     }
 
+    // Paiements par jour
+    public List<PaymentData> getPaymentsByDay(){
+        List<Object[]> results = paymentRepository.getTotalPaymentsByDay();
+        return results.stream()
+                .map(result -> new PaymentData((LocalDateTime) result[0], (Double) result[1]))
+                .collect(Collectors.toList());
+    }
+
+    // Paiements par mois
+    public List<PaymentData> getPaymentsByMonth() {
+        List<Object[]> results = paymentRepository.getTotalPaymentsByMonth();
+        return results.stream()
+            .map(result -> new PaymentData((LocalDateTime) result[0], (Double) result[1]))
+            .collect(Collectors.toList());
+    }
+
+    // Paiements par année
+    public List<PaymentData> getPaymentsByYear() {
+    List<Object[]> results = paymentRepository.getTotalPaymentsByYear();
+    return results.stream()
+            .map(result -> new PaymentData((LocalDateTime) result[0], (Double) result[1]))
+            .collect(Collectors.toList());
+}
+
+
+
+    //Mettre à jour un  paiement (le status d'un paiement)
     @Transactional
     public Payment updatePaymentStatus(Long id, String status) {
         // Récupérer le paiement ou lever une exception
@@ -168,10 +196,6 @@ public class PaymentService {
         return paymentRepository.findByCar_RegNo(regNo);
   }
 
-    //public List<Payment> getPaymentsByService_ServiceType(ServiceType serviceType) {
-    //    return paymentRepository.findPaymentsByService_ServiceType(serviceType);
-   // }
-
     public List<Transaction> getPaymentsWithinDateRange(LocalDateTime startDate, LocalDateTime endDate) {
         return paymentRepository.findPaymentsWithinDateRange(startDate, endDate);
     }
@@ -180,6 +204,7 @@ public class PaymentService {
         return paymentRepository.findByClientId(clientId);
     }
 
+    //Supprimer un paiements on ne sait jamais
     public void deletePayment(Long id) {
         paymentRepository.deleteById(id);
     }

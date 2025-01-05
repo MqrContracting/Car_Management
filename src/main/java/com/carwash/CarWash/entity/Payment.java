@@ -10,8 +10,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "payments")
@@ -37,7 +35,7 @@ public class Payment {
     @JoinColumn(name = "car_id", nullable = false)
     private Car car;
 
-     //Remplacement de la relation Service par une collection de services
+
     @ManyToOne(fetch = FetchType.EAGER)
     private Service service;
 
@@ -59,5 +57,4 @@ public class Payment {
 
     private LocalDateTime paymentDate;
 
-    // Nouveau champ pour stocker le prix total des services
 }
