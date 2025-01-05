@@ -15,10 +15,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -143,28 +144,59 @@ public class PaymentService {
     }
 
     // Paiements par jour
-    public List<PaymentData> getPaymentsByDay(){
-        List<Object[]> results = paymentRepository.getTotalPaymentsByDay();
-        return results.stream()
-                .map(result -> new PaymentData((LocalDateTime) result[0], (Double) result[1]))
-                .collect(Collectors.toList());
-    }
+    public List<PaymentData> getPaymentsByDay() {
+    List<Object[]> results = paymentRepository.getTotalPaymentsByDay();
+    return results.stream()
+            .map(result -> new PaymentData(((Date) result[0]).toLocalDate().atStartOfDay(), (Double) result[1]))
+            .collect(Collectors.toList());
+}
+
 
     // Paiements par mois
     public List<PaymentData> getPaymentsByMonth() {
-        List<Object[]> results = paymentRepository.getTotalPaymentsByMonth();
-        return results.stream()
-            .map(result -> new PaymentData((LocalDateTime) result[0], (Double) result[1]))
-            .collect(Collectors.toList());
-    }
+    List<Object[]> results = paymentRepository.getTotalPaymentsByMonth();
+    return results.stream()
+        .map(result -> {
+            Object dateObject = result[0];
+            LocalDateTime date = null;
+            if (dateObject instanceof Integer) {
+                // Handle the case where it's an Integer (e.g., convert to LocalDateTime)
+                date = LocalDateTime.of((Integer) dateObject, 1, 1, 0, 0, 0, 0); // Example for month as integer
+            } else if (dateObject instanceof LocalDateTime) {
+                date = (LocalDateTime) dateObject;
+            }
+            return new PaymentData(date, (Double) result[1]);
+        })
+        .collect(Collectors.toList());
+}
 
     // Paiements par année
     public List<PaymentData> getPaymentsByYear() {
     List<Object[]> results = paymentRepository.getTotalPaymentsByYear();
+
     return results.stream()
-            .map(result -> new PaymentData((LocalDateTime) result[0], (Double) result[1]))
+            .map(result -> {
+                // Extracting the date and handling both Integer and Date cases
+                LocalDate date = null;
+                Object dateObject = result[0];
+                if (dateObject instanceof Integer) {
+                    // Handle the case where the date is an Integer (e.g., year as integer)
+                    date = LocalDate.of((Integer) dateObject, 1, 1); // Assuming the integer is a year
+                } else if (dateObject instanceof java.sql.Date) {
+                    date = ((java.sql.Date) dateObject).toLocalDate();
+                }
+
+                // Extracting the payment amount (Double)
+                Double amount = (Double) result[1];
+
+                // Returning a new PaymentData object
+                assert date != null;
+                return new PaymentData(date.atStartOfDay(), amount);
+            })
             .collect(Collectors.toList());
 }
+
+
 
 
 

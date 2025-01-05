@@ -5,24 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c96a2b7f-298f-45bb-ac68-8cfe07a313ce" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/4586d979-cc1e-4e93-9450-21f59e5cfcc8.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/4586d979-cc1e-4e93-9450-21f59e5cfcc8.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/4586d979-cc1e-4e93-9450-21f59e5cfcc8/storage_v2/_src_/database/hypro_wash.AqkUFg/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/4586d979-cc1e-4e93-9450-21f59e5cfcc8/storage_v2/_src_/database/hypro_wash.AqkUFg/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/controller/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/controller/ClientController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/controller/PaymentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/entity/Enum/PaymentType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/entity/Enum/PaymentType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/entity/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/entity/Payment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/repository/ClientRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/repository/ClientRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/repository/PaymentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/repository/PaymentRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/service/ClientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/service/ClientService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/dtos/PaymentData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/dtos/PaymentData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/service/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/service/PaymentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/carwash/CarWash/config/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/carwash/CarWash/config/SecurityConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/carwash/CarWash/controller/ClientController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/carwash/CarWash/controller/ClientController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/carwash/CarWash/controller/PaymentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/carwash/CarWash/controller/PaymentController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/carwash/CarWash/repository/ClientRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/carwash/CarWash/repository/ClientRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/carwash/CarWash/repository/PaymentRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/carwash/CarWash/repository/PaymentRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/carwash/CarWash/service/ClientService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/carwash/CarWash/service/ClientService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/carwash/CarWash/service/PaymentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/carwash/CarWash/service/PaymentService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -162,6 +149,7 @@
       <workItem from="1735837107769" duration="7508000" />
       <workItem from="1735874449869" duration="10117000" />
       <workItem from="1735936443395" duration="7771000" />
+      <workItem from="1736079163451" duration="4586000" />
     </task>
     <servers />
   </component>

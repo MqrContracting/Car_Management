@@ -11,15 +11,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/payments")
 @CrossOrigin(origins = "http://localhost:4200")
 @RequiredArgsConstructor
 public class PaymentController {
+
     private final PaymentService paymentService;
 
 
@@ -82,19 +81,35 @@ public class PaymentController {
         return ResponseEntity.ok(payments);
     }
 
+    private Map<String, Object> transformToChartData(List<PaymentData> results) {
+        List<String> labels = new ArrayList<>();
+        List<Number> data = new ArrayList<>();
+        for (PaymentData result : results) {
+            labels.add(result.getPeriod().toString()); // Date, Month, or Year
+            data.add(result.getTotal()); // Total
+        }
+        Map<String, Object> response = new HashMap<>();
+        response.put("labels", labels);
+        response.put("data", data);
+        return response;
+    }
+
     @GetMapping("/by-day")
-    public List<PaymentData> getPaymentsByDay() {
-        return paymentService.getPaymentsByDay();
+   public ResponseEntity<?> getPaymentsByDay() {
+        List<PaymentData> results = paymentService.getPaymentsByDay();
+        return ResponseEntity.ok(transformToChartData(results));
     }
 
     @GetMapping("/by-month")
-    public List<PaymentData> getPaymentsByMonth() {
-        return paymentService.getPaymentsByMonth();
+    public ResponseEntity<?> getPaymentsByMonth() {
+        List<PaymentData> results = paymentService.getPaymentsByMonth();
+        return ResponseEntity.ok(transformToChartData(results));
     }
 
     @GetMapping("/by-year")
-    public List<PaymentData> getPaymentsByYear() {
-        return paymentService.getPaymentsByYear();
+   public ResponseEntity<?> getPaymentsByYear() {
+        List<PaymentData> results = paymentService.getPaymentsByYear();
+        return ResponseEntity.ok(transformToChartData(results));
     }
      @PatchMapping("/{id}/status")
     public ResponseEntity<?> updatePaymentStatus(@PathVariable Long id, @RequestBody Map<String, String> updates) {
