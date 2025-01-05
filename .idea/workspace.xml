@@ -6,12 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="c96a2b7f-298f-45bb-ac68-8cfe07a313ce" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/controller/PaymentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/service/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/carwash/CarWash/service/PaymentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/carwash/CarWash/config/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/carwash/CarWash/config/SecurityConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/carwash/CarWash/controller/PaymentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/carwash/CarWash/controller/PaymentController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/carwash/CarWash/service/PaymentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/carwash/CarWash/service/PaymentService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,6 +146,7 @@
       <workItem from="1735936443395" duration="7771000" />
       <workItem from="1736079163451" duration="6463000" />
       <workItem from="1736088124215" duration="68000" />
+      <workItem from="1736090970826" duration="676000" />
     </task>
     <servers />
   </component>
