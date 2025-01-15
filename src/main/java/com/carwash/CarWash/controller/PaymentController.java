@@ -82,17 +82,23 @@ public class PaymentController {
     }
 
     private Map<String, Object> transformToChartData(List<PaymentData> results) {
-        List<String> labels = new ArrayList<>();
-        List<Number> data = new ArrayList<>();
-        for (PaymentData result : results) {
-            labels.add(result.getPeriod().toString()); // Date, Month, or Year
-            data.add(result.getTotal()); // Total
-        }
-        Map<String, Object> response = new HashMap<>();
-        response.put("labels", labels);
-        response.put("data", data);
-        return response;
-    }
+    // Initialiser les listes pour les labels et les données
+    List<String> labels = results.stream()
+        .map(result -> result.getPeriod() != null ? result.getPeriod().toString() : "Unknown")
+        .toList();
+
+    List<Double> data = results.stream()
+        .map(result -> result.getTotal() != null ? result.getTotal() : 0)
+        .toList();
+
+    // Créer une map avec les résultats transformés
+    Map<String, Object> response = new HashMap<>();
+    response.put("labels", labels);
+    response.put("data", data);
+
+    return response;
+}
+
 
     @GetMapping("/Day")
    public ResponseEntity<?> getPaymentsByDay() {

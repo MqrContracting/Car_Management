@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Date;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -139,7 +139,7 @@ public class PaymentService {
 
     //Tous les paiements
     public List<Payment> getAllPayments() {
-        //System.out.println("Le resultat de payment est: "+result);
+        //System.out.println("Le resultat de payment est : "+result);
         return paymentRepository.findAllWithDetails();
     }
 
@@ -148,57 +148,70 @@ public class PaymentService {
     List<Object[]> results = paymentRepository.getTotalPaymentsByDay();
     return results.stream()
             .map(result -> {
-                // Récupérer la date de création et la convertir en LocalDate (sans heure)
-                LocalDate date = ((java.sql.Date) result[0]).toLocalDate();
+                // Convertir java.sql.Date en LocalDateTime
+                java.sql.Date sqlDate = (java.sql.Date) result[0];
+                LocalDateTime paymentDate = sqlDate.toLocalDate().atStartOfDay(); // Début du jour
                 Double amount = (Double) result[1];
-                // Retourner un PaymentData avec la date de création et le montant
-                return new PaymentData(date.atStartOfDay(), amount); // on garde 00:00:00 pour l'heure
+                // Créer un nouvel objet PaymentData avec une période correcte
+                return new PaymentData(paymentDate, amount, paymentDate); // Période = jour
             })
             .collect(Collectors.toList());
 }
 
 
 
+
+
     // Paiements par mois
-    public List<PaymentData> getPaymentsByMonth() {
+   public List<PaymentData> getPaymentsByMonth() {
     List<Object[]> results = paymentRepository.getTotalPaymentsByMonth();
     return results.stream()
         .map(result -> {
             Object dateObject = result[0];
             LocalDateTime date = null;
+
+            // Vérifier et convertir l'objet dateObject
             if (dateObject instanceof Integer) {
-                // Handle the case where it's an Integer (e.g., convert to LocalDateTime)
-                date = LocalDateTime.of((Integer) dateObject, 1, 1, 0, 0, 0, 0); // Example for month as integer
+                // Si c'est un mois (Integer), utilisez une année par défaut (ex. : 2023)
+                int month = (Integer) dateObject;
+                date = LocalDateTime.of(2024, month, 1, 0, 0, 0, 0);
+            } else if (dateObject instanceof java.sql.Date) {
+                // Si le regroupement est par mois, convertissez java.sql.Date
+                date = ((java.sql.Date) dateObject).toLocalDate().atStartOfDay().withDayOfMonth(1);
             } else if (dateObject instanceof LocalDateTime) {
-                date = (LocalDateTime) dateObject;
+                // Si c'est déjà un LocalDateTime, ajustez pour le premier jour du mois
+                date = ((LocalDateTime) dateObject).withDayOfMonth(1);
             }
-            return new PaymentData(date, (Double) result[1]);
+
+            // Récupérer le montant associé
+            Double amount = (Double) result[1];
+
+            // Créer un objet PaymentData avec une période correcte
+            return new PaymentData(date, amount, date);
         })
         .collect(Collectors.toList());
 }
 
+
+
+
     // Paiements par année
     public List<PaymentData> getPaymentsByYear() {
     List<Object[]> results = paymentRepository.getTotalPaymentsByYear();
-
     return results.stream()
             .map(result -> {
-                // Extracting the date and handling both Integer and Date cases
                 LocalDate date = null;
                 Object dateObject = result[0];
                 if (dateObject instanceof Integer) {
-                    // Handle the case where the date is an Integer (e.g., year as integer)
-                    date = LocalDate.of((Integer) dateObject, 1, 1); // Assuming the integer is a year
+                    // Si la période est une année en Integer
+                    date = LocalDate.of((Integer) dateObject, 1, 1); // 1er janvier de l'année
                 } else if (dateObject instanceof java.sql.Date) {
-                    date = ((java.sql.Date) dateObject).toLocalDate();
+                    date = ((java.sql.Date) dateObject).toLocalDate().withDayOfYear(1); // Premier jour de l'année
                 }
-
-                // Extracting the payment amount (Double)
                 Double amount = (Double) result[1];
-
-                // Returning a new PaymentData object
+                // Créer un nouvel objet PaymentData avec une période correcte
                 assert date != null;
-                return new PaymentData(date.atStartOfDay(), amount);
+                return new PaymentData(date.atStartOfDay(), amount, date.atStartOfDay());
             })
             .collect(Collectors.toList());
 }
@@ -207,7 +220,8 @@ public class PaymentService {
 
 
 
-    //Mettre à jour un  paiement (le status d'un paiement)
+
+    //Mettre à jour un paiement (le status d'un paiement)
     @Transactional
     public Payment updatePaymentStatus(Long id, String status) {
         // Récupérer le paiement ou lever une exception
@@ -222,7 +236,7 @@ public class PaymentService {
 
         // Mettre à jour le statut et sauvegarder
         payment.setStatus(PaymentStatus.valueOf(status));
-        //System.out.println("Le statut du paiement est: "+payment.getStatus());
+        //System.out.println("Le statut du paiement est : "+payment.getStatus());
         return paymentRepository.save(payment);
     }
 
@@ -243,7 +257,7 @@ public class PaymentService {
         return paymentRepository.findByClientId(clientId);
     }
 
-    //Supprimer un paiements on ne sait jamais
+    //Supprimer un paiement, on ne sait jamais
     public void deletePayment(Long id) {
         paymentRepository.deleteById(id);
     }

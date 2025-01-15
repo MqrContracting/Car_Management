@@ -13,12 +13,12 @@ public class PaymentData {
     private LocalDateTime period;
 
     // Constructeurs, getters et setters
-    public PaymentData(LocalDateTime date, Double total) {
-        this.paymentDate = date;
-        this.total = total;
-        this.period = LocalDateTime.now();
+    public PaymentData(LocalDateTime paymentDate, Double total, LocalDateTime period) {
+    this.paymentDate = paymentDate;
+    this.total = total;
+    this.period = period;
+}
 
-    }
 
 
 }
